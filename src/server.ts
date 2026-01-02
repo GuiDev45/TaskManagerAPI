@@ -1,9 +1,5 @@
-import http from "http";
+import { app } from "./app.js";
 
-const server = http.createServer((_req, res) => {
-  res.end("API rodando");
-});
-
-server.listen(3000, () => {
-  console.log("Server on http://localhost:3000");
+app.listen(3000, () => {
+  console.log("Server listen http://localhost:3000");
 });
