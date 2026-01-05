@@ -1,30 +1,61 @@
-# Dependencies
-node_modules
-
-# Build
-dist
-
-# Environment variables
-.env
-.env.*
-
-# Logs
-*.log
+# ======================
+# Node / Package Manager
+# ======================
+node_modules/
+.yarn/
+.pnp.*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Cache / temp
-.cache
-.tmp
+# ======================
+# Build / Output
+# ======================
+dist/
+build/
+out/
 
-# Tests
-coverage
+# ======================
+# TypeScript
+# ======================
+*.tsbuildinfo
 
-# Editor / OS
-.vscode
+# ======================
+# Environment variables
+# ======================
+.env
+.env.*
+!.env.example
+
+# ======================
+# Sequelize
+# ======================
+/storage/
+sequelize.sqlite
+*.sqlite
+
+# ======================
+# OS / Editor
+# ======================
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
 
-# Personal
+# ======================
+# Coverage / Tests
+# ======================
+coverage/
+.nyc_output/
+
+# ======================
+# Temporary / Logs
+# ======================
+*.log
+temp/
+tmp/
+
+# ======================
+# Misc
+# ======================
 objetivo.txt

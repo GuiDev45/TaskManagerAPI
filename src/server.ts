@@ -1,5 +1,10 @@
 import { app } from "./app.js";
+import { connectDatabase } from "./database/index.js";
 
-app.listen(3000, () => {
-  console.log("Server listen http://localhost:3000");
+const PORT = 3000;
+
+connectDatabase().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
 });
