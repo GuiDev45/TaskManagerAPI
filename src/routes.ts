@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import { router as userRoutes } from "./modules/users/users.routes.js";
 import { router as authRoutes } from "./modules/auth/auth.routes.js";
 import { router as taskRoutes } from "./modules/tasks/task.routes.js";

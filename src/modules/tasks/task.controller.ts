@@ -2,39 +2,43 @@ import type { Request, Response } from "express";
 import { taskService } from "./task.service.js";
 
 export const taskController = {
-  index(req: Request, res: Response) {
-    const userId = req.user.id;
-
-    const tasks = taskService.findAllByUser(userId);
+  async index(req: Request, res: Response) {
+    const userId = req.user.id; // injetado pelo middleware JWT
+    const tasks = await taskService.findAll(userId);
     return res.json(tasks);
   },
 
-  create(req: Request, res: Response) {
-    const { title } = req.body;
+  async create(req: Request, res: Response) {
     const userId = req.user.id;
+    const { title, description } = req.body;
 
-    const task = taskService.create(title, userId);
+    const task = await taskService.create(userId, title, description);
     return res.status(201).json(task);
   },
 
-  update(req: Request, res: Response) {
-    const { id } = req.params;
+  async update(req: Request, res: Response) {
     const userId = req.user.id;
+    const { id } = req.params;
+    const { title, description, completed } = req.body;
 
     try {
-      const task = taskService.update(id, userId, req.body);
+      const task = await taskService.update(userId, id, {
+        title,
+        description,
+        completed,
+      });
       return res.json(task);
     } catch (err) {
       return res.status(404).json({ message: (err as Error).message });
     }
   },
 
-  delete(req: Request, res: Response) {
-    const { id } = req.params;
+  async delete(req: Request, res: Response) {
     const userId = req.user.id;
+    const { id } = req.params;
 
     try {
-      taskService.delete(id, userId);
+      await taskService.delete(userId, id);
       return res.status(204).send();
     } catch (err) {
       return res.status(404).json({ message: (err as Error).message });

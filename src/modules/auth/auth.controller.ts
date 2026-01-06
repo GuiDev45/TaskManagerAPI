@@ -7,9 +7,10 @@ export const authController = {
 
     try {
       const token = await authService.login(email, password);
+
       return res.json({ token });
     } catch (err) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: (err as Error).message });
     }
   },
 };

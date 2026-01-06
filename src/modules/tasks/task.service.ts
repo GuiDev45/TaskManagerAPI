@@ -1,22 +1,34 @@
 import { Task } from "./task.model.js";
 
 export const taskService = {
-  create(title: string, userId: string) {
-    return Task.create({ title, userId });
+  async create(userId: string, title: string, description?: string) {
+    const task = await Task.create({
+      userId,
+      title,
+      description: description || null,
+      completed: false,
+    });
+
+    return task;
   },
 
-  findAllByUser(userId: string) {
+  async findAll(userId: string) {
     return Task.findAll({ where: { userId } });
   },
 
-  async update(taskId: string, userId: string, data: any) {
+  async update(
+    userId: string,
+    taskId: string,
+    data: Partial<{ title: string; description: string; completed: boolean }>,
+  ) {
     const task = await Task.findOne({ where: { id: taskId, userId } });
     if (!task) throw new Error("Task not found");
 
-    return task.update(data);
+    await task.update(data);
+    return task;
   },
 
-  async delete(taskId: string, userId: string) {
+  async delete(userId: string, taskId: string) {
     const task = await Task.findOne({ where: { id: taskId, userId } });
     if (!task) throw new Error("Task not found");
 
